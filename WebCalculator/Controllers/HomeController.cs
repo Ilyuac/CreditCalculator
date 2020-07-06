@@ -33,7 +33,6 @@ namespace WebCalculator.Controllers
 
         public IActionResult Result()
         {
-
             return View();
         }
 
@@ -60,14 +59,32 @@ namespace WebCalculator.Controllers
             for (int j = 1; j <= credit.Time; j++)
             {
                 double procent = Math.Round(ost * i,2);
-                double body = Math.Round(payment - procent,2);
-                ost = Math.Round(ost - body,2);
-                table.Add(new Payment(j, date.Date.ToShortDateString(), body, procent, ost));
-                date.AddMonths(1);
+                
+                if (j != credit.Time)
+                {
+                    double body = Math.Round(payment - procent, 2);
+                    ost = Math.Round(ost - body, 2);
+                    table.Add(new Payment(j, date.Date.ToShortDateString(), body, procent, ost));
+                }
+                else
+                {
+                    double body = table.Payments.Last().Renains;
+                    ost = Math.Round(ost - body, 2);
+                    table.Add(new Payment(j, date.Date.ToShortDateString(), body, procent, ost));
+                }
+                date = date.AddMonths(1);
             }
-            table.Payments.Last().Renains = 0.0;
 
             return table;
+        }
+
+        private bool TestCorrectData(Credit credit)
+        {
+            bool isCorrect = false;
+
+            //TODO: Проверка на корректность введенных данных.
+
+            return isCorrect;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
