@@ -1,4 +1,5 @@
 ﻿using System;
+using static WebCalculator.Models.Collections;
 
 namespace WebCalculator.Models
 {
@@ -31,6 +32,4 @@ namespace WebCalculator.Models
         public SelectRate selectRate { get; set; }
         public SelectPayment selectPayment { get; set; }
     }
-
- 
 }

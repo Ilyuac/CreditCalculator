@@ -1,9 +1,9 @@
-﻿using CCalc.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Diagnostics;
 using System.Linq;
 using WebCalculator.Models;
+using static WebCalculator.Models.Collections;
 
 namespace WebCalculator.Controllers
 {
@@ -12,6 +12,13 @@ namespace WebCalculator.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            ViewBag.Month = Collections.SelectTime.Месяцев.ToString();
+            ViewBag.Day = Collections.SelectTime.Дней.ToString();
+            ViewBag.Years = Collections.SelectRate.Годовых.ToString();
+            ViewBag.Days = Collections.SelectRate.в_день.ToString();
+            ViewBag.Everymonth = Collections.SelectPayment.ежемесячно.ToString();
+            ViewBag.TenDay = Collections.SelectPayment.каждые_10_дней.ToString();
+            ViewBag.FiftenDay = Collections.SelectPayment.каждые_15_дней.ToString();
             return View();
         }
 
@@ -34,14 +41,14 @@ namespace WebCalculator.Controllers
         {
             PaymentTable table = new PaymentTable();
             double K, i;
-            //if (credit.SelectTime == SelectTime.Месяцев)
-            //{
+            if (credit.SelectTime == SelectTime.Месяцев)
+            {
                 i = credit.Rate / 100 / 12;
-            //}
-            //else
-            //{
-            //    i = credit.Rate / 100 / 30;
-            //}
+            }
+            else
+            {
+                i = credit.Rate / 100 / 30;
+            }
             K = (i * Math.Pow(1 + i, credit.Time))/(Math.Pow(1+i,credit.Time)-1);
 
             double payment = Math.Round(K * credit.Sum,2);
