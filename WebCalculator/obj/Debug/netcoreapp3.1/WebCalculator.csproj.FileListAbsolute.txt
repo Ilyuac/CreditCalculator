@@ -34,3 +34,4 @@ D:\VS Project\ПО\TestProject\CreditCalculator\WebCalculator\obj\Debug\netcorea
 D:\VS Project\ПО\TestProject\CreditCalculator\WebCalculator\obj\Debug\netcoreapp3.1\WebCalculator.genruntimeconfig.cache
 D:\VS Project\ПО\TestProject\CreditCalculator\WebCalculator\obj\Debug\netcoreapp3.1\WebCalculator.csproj.CopyComplete
 D:\VS Project\ПО\TestProject\CreditCalculator\WebCalculator\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
+D:\VS Project\ПО\TestProject\CreditCalculator\WebCalculator\obj\Debug\netcoreapp3.1\WebCalculator.csprojAssemblyReference.cache
