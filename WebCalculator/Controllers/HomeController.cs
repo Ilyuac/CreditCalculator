@@ -34,7 +34,7 @@ namespace WebCalculator.Controllers
             }
             else
             {
-                return View("Error");
+                return MyError(1);
             }
         }
 
@@ -46,14 +46,24 @@ namespace WebCalculator.Controllers
         private PaymentTable CalculateCredit(Credit credit)
         {
             PaymentTable table = new PaymentTable();
-            double K, i;
+            double K, i, rate=0.0;
+            switch (credit.selectRate)
+            {
+                case SelectRate.Годовых:
+                    rate = credit.Rate;
+                    break;
+                case SelectRate.в_день:
+                    rate = credit.Rate/365;
+                    break;
+            }
+            
             if (credit.SelectTime == SelectTime.Месяцев)
             {
-                i = credit.Rate / 100 / 12;
+                i = rate / 100 / 12;
             }
             else
             {
-                i = credit.Rate / 100 / 30;
+                i = rate / 100 / 30;
             }
             K = (i * Math.Pow(1 + i, credit.Time))/(Math.Pow(1+i,credit.Time)-1);
 
@@ -107,12 +117,12 @@ namespace WebCalculator.Controllers
         private bool TestCorrectData(Credit credit)
         {
             double coin = credit.Sum - credit.Sum % 0.01;
-            if (coin == credit.Sum)
+            if (coin == credit.Sum && coin > 0)
             {
                 if (credit.Time > 0)
                 {
                     double rate = credit.Rate - credit.Rate % 0.01;
-                    if (rate==credit.Rate)
+                    if (rate==credit.Rate && rate > 0)
                     {
                         return true;
                     }
@@ -121,6 +131,19 @@ namespace WebCalculator.Controllers
 
             return false;
         }
+
+        [HttpGet]
+        public IActionResult MyError(int id)
+        {
+            ViewBag.Error = Errors.ListErrors.Where(e=>e.ID==id).FirstOrDefault().Message;
+            return View("MyError");
+        }
+        [HttpPost]
+        public IActionResult MyError()
+        {
+            return View("Index");
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
