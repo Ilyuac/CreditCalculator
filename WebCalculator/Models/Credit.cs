@@ -11,11 +11,11 @@ namespace WebCalculator.Models
         /// <summary>
         /// Сумма кредита.
         /// </summary>
-        public double Sum { get; set; }
+        public double Sum { get; set; } = 0.01;
         /// <summary>
         /// Срок погашения кредита (месяцы днии).
         /// </summary>
-        public int Time { get; set; }
+        public uint Time { get; set; }
         /// <summary>
         /// Флаг определяющий срок кредита в днях или месяцах.
         /// </summary>
@@ -23,7 +23,7 @@ namespace WebCalculator.Models
         /// <summary>
         /// Ставка по кредиту.
         /// </summary>
-        public double Rate { get; set; }
+        public double Rate { get; set; } = 0.01;
         /// <summary>
         /// Флаг определяющий ставку в днях или год.
         /// true - в днях
